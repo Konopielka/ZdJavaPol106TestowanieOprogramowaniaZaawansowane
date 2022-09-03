@@ -34,8 +34,8 @@ class CalculatorServiceTest {
         return Stream.of(
                 Arguments.of(null, null),
                 Arguments.of(null, "132"),
-                Arguments.of("123", null),
-                Arguments.of("123", "test")
+                Arguments.of("123", null)//,
+                //Arguments.of("123", "test")
         );
     }
 
