@@ -12,13 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class FibonacciTest {
 
     @ParameterizedTest
-    //@MethodSource("caly_package.NazwaKlasy#nazwaMetody")
     @MethodSource("pl.sdacademy.unit.test.advance.exercises.parametrized.methodsource.provider.FibonacciProvider#provideData")
-    void shouldReturnCorrectValue(int input, int expectedResult) {
+    void shouldReturnCorrectValue(int input, int expectedResult){
         //when
         int result = Fibonacci.getValueFromIndex(input);
         //then
-        assertEquals(expectedResult, result); //Junit
+
+        assertEquals(expectedResult, result);
         assertThat(result).isEqualTo(expectedResult); //assertJ
+
     }
+
+
 }

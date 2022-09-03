@@ -11,31 +11,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorServiceTest {
 
-    /*
-    null, null
-    null, "123"
-    "123, null
-     */
-
     @ParameterizedTest
     @MethodSource("provideData")
-    void shouldThrowExceptionWhenAnyOfArgumentIsNull(String a, String b) {
-        //when & then
+    void shouldThrowExceptionWhenAnyOfArgumentsIsNull(String a, String b){
+        //when//then
         //Junit
         assertThrows(IllegalArgumentException.class, () -> CalculatorService.add(a, b));
 
         //assertJ
-        assertThatThrownBy(() -> CalculatorService.add(a, b))
+        assertThatThrownBy(() -> CalculatorService.add(a,b))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Arguments 'a' and 'b' are required.");
     }
-
-    private static Stream<Arguments> provideData() {
+    private static Stream<Arguments> provideData(){
         return Stream.of(
                 Arguments.of(null, null),
                 Arguments.of(null, "132"),
-                Arguments.of("123", null)//,
-                //Arguments.of("123", "test")
+                Arguments.of("321", null),
+                Arguments.of("321", "test")
         );
     }
 

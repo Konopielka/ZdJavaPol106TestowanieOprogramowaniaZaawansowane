@@ -2,6 +2,8 @@ package pl.sdacademy.unit.test.advance.exercises.mockito.user;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -15,7 +17,8 @@ import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
-    private static final User USER = new User(1L, "Jan", "Kowalski");
+
+    private static final User USER = new User(1L,"Jan", "Kowalski");
 
     @Mock
     private UserRepository userRepository;
@@ -27,26 +30,27 @@ class UserServiceTest {
     private UserService userService;
 
     @Test
-    void shouldReturnUserById() {
+    void shouldReturnUserById(){
         //given
-
-        Mockito.when(userRepository.findById(any())).thenReturn(Optional.of(USER));
+        Mockito.when(userRepository.findById(any()))
+                .thenReturn(Optional.of(USER));
         //when
         User result = userService.getUserById(2L);
         //then
+
         assertEquals(USER, result);
     }
 
     @Test
-    void shouldThrowExceptionWhenUserDoesNotExist() {
+    void shouldThrowExceptionWhenUserDoesNotExist(){
         //given
         Mockito.when(userRepository.findById(any())).thenReturn(Optional.empty());
-        //when & then
+        //whenThen
         assertThrows(NoSuchElementException.class, () -> userService.getUserById(1L));
     }
 
     @Test
-    void shouldCreateNewUser() {
+    void shouldCreateNewUser(){
         //given
         Mockito.when(userValidator.isUserValid(any())).thenReturn(true);
         Mockito.when(userRepository.addUser(USER)).thenReturn(USER);
@@ -54,15 +58,15 @@ class UserServiceTest {
         //when
         User result = userService.createUser(USER);
         //then
-        assertEquals(expectedResult, result);
+        assertEquals(USER, result);
     }
 
     @Test
-    void shouldThrowExceptionWhenUserIsInvalid() {
+    void shouldThrowExceptionWhenUserIsInvalid(){
         //given
         Mockito.when(userValidator.isUserValid(USER)).thenReturn(false);
-        //when & then
+        Mockito.when(userRepository.addUser(USER)).thenReturn(USER);
+        //whenThen
         assertThrows(IllegalArgumentException.class, () -> userService.createUser(USER));
     }
-
 }

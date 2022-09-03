@@ -9,47 +9,32 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StringUtilTest {
 
-    /*
-    true:
-    ""
-    " "
-    null
-
-    false:
-    "sda"
-    " sda"
-    "sda "
-    " sda    "
-
-     */
-
     @ParameterizedTest
-    @ValueSource(strings = {"", " "})
-    void shouldReturnTrueIfStringIsBlank(String input) {
+    @ValueSource(strings={"", " ", "    "})
+    void shouldReturnTrueIfStringIsBlank(String input){
         //when
         boolean result = StringUtil.isBlank(input);
         //then
-        assertTrue(result); //Junit
+        assertTrue(result);  //Junit
         assertThat(result).isTrue(); //assertJ
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"sda", " sda", "sda ", " sda "})
-    void shouldReturnFalseIfStringIsNotEmpty(String value) {
-        //when
+        void shouldReturnFalseIfStringIsNotEmpty(String value){
+            //when
         boolean result = StringUtil.isBlank(value);
         //then
-        assertFalse(result); //Junit
-        assertThat(result).isFalse(); //assertJ
+        assertFalse(result);//Junit
+        assertThat(result).isFalse();//assertJ
     }
 
     @Test
-    void shouldReturnTrueIfStringIsNull() {
+    void shouldReturnTrueIfStringIsNull(){
         //when
         boolean result = StringUtil.isBlank(null);
         //then
-        assertTrue(result); //Junit
-        assertThat(result).isTrue(); //assertJ
+        assertTrue(result);
+        assertThat(result).isTrue();
     }
-
 }
